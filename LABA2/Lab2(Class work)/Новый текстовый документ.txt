@@ -1,0 +1,84 @@
+#include <iostream>
+#include <cmath>
+
+//var16
+/*
+func (-3)/((15*x-9)*(15*x-9)*(15*x-9))
+D: [-1;0]
+*/
+
+using namespace std;
+
+float sum = 0;
+float b = 0;
+float a = -1;
+float n =2400;
+float x = a;
+float h = (b-a)/n;
+
+
+float f(float x){
+        return ((-3)/((15*x-9)*(15*x-9)*(15*x-9))) ;
+        }
+
+void funcPrammoug(){
+
+    for(int j = 0; j<n;j++){
+        sum+=f(x)*h;
+        x+=h;
+    }
+    std::cout<<sum<<std::endl;
+}
+
+void funcSimpson(float ll, float ul, int n){
+    float Sum=0;
+    float x[1000], fx[1000];
+    float h3= h/3;
+
+    for(int i = 0;i<=n;i++){
+        x[i]=ll+i*h;
+        fx[i]=f(x[i]);
+
+    }
+
+    for(int i=0;i<=n;i++){
+        if(i==0 || i==n)
+            Sum+=fx[i];
+        else if (i%2 !=0)
+            Sum+= 4*fx[i];
+        else
+            Sum+=2*fx[i];
+    }
+    Sum*=h3;
+    std::cout<<Sum;
+    std::cout<<endl;
+
+}
+
+void trapeciya(){
+    float Sum =0;
+    for(int i =0; i<n; i++){
+        float x1 = a + i*h;
+        float x2= a+(i+1)*h;
+
+        Sum+= 0.5*(x2-x1)*(f(x1)+f(x2));
+
+    }
+
+    std::cout<<Sum;
+    std::cout<<endl;
+
+}
+
+
+
+int main()
+{
+//0.001060207
+
+   funcPrammoug();
+   trapeciya();
+   funcSimpson(0,-1,384);
+
+    return 0;
+}
